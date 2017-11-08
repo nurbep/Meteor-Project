@@ -1,0 +1,133 @@
+<head>
+  <title>Geolocation</title>
+</head>
+<body>
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://j.maxmind.com/app/geoip.js"></script> <!-- For our fallback -->
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+
+
+
+<div class="container">
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/">Geolocation</a>
+    </div>
+  </header>
+  <div id="locationDemo">
+    {{> location}}
+  </div>
+  
+  <div>
+    {{> map}}
+  </div>
+</div>
+
+{{#if currentUser}}
+        <p>You're logged in {{currentUser}}.</p>
+        <div>
+    {{> addAdvs}}
+  </div>
+   <div>
+    {{> AdvsList}}
+  </div>
+
+    {{else}}
+        {{> register}}
+        {{> login}}
+    {{/if}}
+      
+</body>
+<template name="location">
+  <div>
+    Lat: {{lat}}
+  </div>
+  <div>
+    Lon: {{lon}}
+  </div>
+  <div>
+    addr: {{add}}
+  </div>
+  <div>
+    Distance: {{distance}}
+  </div>
+  
+</template>
+  
+<template name="map">
+  
+ <form> 
+<input type="button" class="button" id="go" value="Click Me and I'll Guess Your Address!">
+<div id="results"></div>
+</form>
+</template>
+
+
+<template name="addAdvs">
+    <form>
+        <input type="text" name="Avds_title">
+        <input type="textArea" name="Avds_description">
+        <input type="text" name="MobileNo">
+        <input type="submit" value="Add Player">
+    </form>
+    <br>
+    <p><a href="#" class="logout">Logout</a></p>
+</template>
+
+<template name="AdvsList">
+
+ <ul>
+      
+          <li class="advertise">
+           {{user.email}}
+
+             {{user.name}}
+          
+          </li>
+      
+      
+ </ul>
+
+  <ul>
+      {{#each Adv}}
+          <li class="advertise">{{AddTitle}}
+           {{AddDesc}}
+           {{MobNo}}
+           {{latitude}}
+           {{longitude}}
+           {{address}}
+           {{Adv_date}}
+            {{distance}}
+            {{Name}}
+             {{postedBy}}
+
+          </li>
+      {{/each}}
+      
+  </ul>
+</template>
+
+
+<template name="register">
+    <form>
+           <input type="text" name="registerName">
+        <input type="email" name="registerEmail">
+        <input type="password" name="registerPassword">
+        <input type="submit" value="Register">
+    </form>
+</template>
+
+
+<template name="login">
+    <form>
+        <input type="email" name="loginEmail">
+        <input type="password" name="loginPassword">
+        <input type="submit" value="Login">
+    </form>
+</template>
